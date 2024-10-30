@@ -1,4 +1,4 @@
-OBJS = ast.o interpreter.o compiler.o runtime.o
+OBJS = ast.o interpreter.o compiler.o runtime.o environment.o main.o
 
 all: pja
 
