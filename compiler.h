@@ -25,5 +25,6 @@ typedef struct {
 void init_bytecode(Bytecode *bytecode);
 void compile_ast(Node *node, Bytecode *bytecode);
 void free_bytecode(Bytecode *bytecode);
+void compile(const char *filename, Bytecode *bytecode);
 
 #endif
