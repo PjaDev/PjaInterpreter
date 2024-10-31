@@ -1,5 +1,8 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "compiler.h"
+#include "parser.h"
+#include "environment.h"
 
 void init_bytecode(Bytecode *bytecode) {
     bytecode->instructions = NULL;
@@ -21,7 +24,7 @@ int add_constant(Bytecode *bytecode, int value) {
 
 void compile_ast(Node *node, Bytecode *bytecode) {
     if (!node) return;
-    
+
     switch (node->type) {
         case NODE_CONST:
             add_instruction(bytecode, BC_LOAD_CONST);
@@ -60,4 +63,23 @@ void compile_ast(Node *node, Bytecode *bytecode) {
 void free_bytecode(Bytecode *bytecode) {
     free(bytecode->instructions);
     free(bytecode->constants);
+}
+
+void compile(const char *filename, Bytecode *bytecode) {
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        printf("Error: Cannot open file %s\n", filename);
+        return;
+    }
+
+    // Inisialisasi bytecode
+    init_bytecode(bytecode);
+
+    // Parsing AST dan kompilasi (ini contoh dummy)
+    Node *ast = parse(file);
+    compile_ast(ast, bytecode);
+
+    // Bebaskan AST jika diperlukan (tidak diimplementasikan di sini)
+
+    fclose(file);
 }
